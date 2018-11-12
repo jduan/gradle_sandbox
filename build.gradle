@@ -5,11 +5,103 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
 
+import org.apache.commons.codec.binary.Base64
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'commons-codec', name: 'commons-codec', version: '1.2'
+    }
+}
+
 // Be sure to add the plugins {} block at the top of the file.
 plugins {
     id "base"
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+}
+
+// This task uses the "commons-coded" library from the above.
+task encode {
+    doLast {
+        def byte[] encodedString = new Base64().encode('hello world\n'.getBytes())
+        println new String(encodedString)
+    }
+}
+
+// simplest task
+task hello {
+    doLast {
+        println 'Hello world!'
+    }
+}
+
+// Manipulate existing tasks
+hello.doFirst {
+    println "Hello Venus"
+}
+
+hello.doLast {
+    println "Hello Mars"
+}
+
+hello.doLast {
+    println "Greetings from the $hello.name task"
+}
+
+// build scripts are code, very powerful
+task upper {
+    doLast {
+        String someString = 'mY_nAmE'
+        println "Original: " + someString
+        println "Upper case: " + someString.toUpperCase()
+    }
+}
+
+// this task depends on the "hello" task
+task intro(dependsOn: hello) {
+    doLast {
+        println "I'm Gradle"
+    }
+}
+
+// Dynamically create tasks
+4.times { counter ->
+    task "task$counter" {
+        doLast {
+            println "I'm task number $counter"
+        }
+    }
+}
+
+// Add dependencies for "task0" after it's defined above.
+task0.dependsOn task2, task3
+
+task count {
+    doLast {
+        4.times { print "$it " }
+    }
+}
+
+task distribution {
+    doLast {
+        println "We build the zip with version=$version"
+    }
+}
+task release(dependsOn: 'distribution') {
+    doLast {
+        println "We release now"
+    }
+}
+// Define a variable by looking at the task graph.
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        version = '1.0'
+    } else {
+        version = '1.0-SNAPSHOT'
+    }
 }
 
 // group can be anything.
@@ -24,6 +116,14 @@ task zip(type: Zip, group: "Archive",
         description: "Archives sources in a zip file") {
     from "src"
     setArchiveName "gradle_sandbox_1.0.zip"
+}
+
+// configure a task after creation
+task myCopy(type: Copy)
+myCopy {
+    from 'resources'
+    into 'target'
+    include('**/*.txt', '**/*.xml', '**/*.properties')
 }
 
 dependencies {
