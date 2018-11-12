@@ -1,0 +1,5 @@
+task taskY {
+    doLast {
+        println "taskY"
+    }
+}

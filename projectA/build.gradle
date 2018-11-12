@@ -1,0 +1,31 @@
+task taskX(dependsOn: ':projectB:taskY') {
+    doLast {
+        println "taskX"
+    }
+}
+
+task taskZ {
+    doLast {
+        println "taskZ"
+    }
+}
+
+taskX.dependsOn taskZ
+
+task lib1 {
+    doLast {
+        println 'lib1'
+    }
+}
+
+task lib2 {
+    doLast {
+        println 'lib2'
+    }
+}
+
+// Define task dependencies using a closure. The closure should
+// return a single Task object or a collection of Task objects.
+taskX.dependsOn {
+    tasks.findAll { task -> task.name.startsWith('lib') }
+}
