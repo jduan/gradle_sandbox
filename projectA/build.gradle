@@ -24,6 +24,8 @@ task lib2 {
     }
 }
 
+lib1.mustRunAfter lib2
+
 // Define task dependencies using a closure. The closure should
 // return a single Task object or a collection of Task objects.
 taskX.dependsOn {
