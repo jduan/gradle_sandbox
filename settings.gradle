@@ -9,4 +9,4 @@
 
 rootProject.name = 'gradle_sandbox'
 
-include 'projectA', 'projectB'
+include 'projectA', 'projectB', 'projectC'
