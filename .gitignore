@@ -3,3 +3,4 @@ build/
 dest/
 .idea/
 *.iml
+*.swp

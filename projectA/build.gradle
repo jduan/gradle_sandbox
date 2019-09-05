@@ -1,3 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+// Be sure to add the plugins {} block at the top of the file.
+plugins {
+    id "base"
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+    id 'application'
+}
+
 task taskX(dependsOn: ':projectB:taskY') {
     doLast {
         println "taskX"
