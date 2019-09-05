@@ -12,6 +12,10 @@ plugins {
     id 'application'
 }
 
+dependencies {
+    compile project(':projectA')
+}
+
 application {
     mainClassName = 'projectB.ProjectBMain'
 }
