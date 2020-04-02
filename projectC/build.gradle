@@ -10,6 +10,7 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'application'
+    id 'org.gradle.test-retry' version '1.0.0'
 }
 
 repositories {
@@ -30,5 +31,13 @@ application {
 task taskY {
     doLast {
         println "taskY"
+    }
+}
+
+test {
+    retry {
+        failOnPassedAfterRetry = true
+        maxFailures = 42
+        maxRetries = 1
     }
 }
