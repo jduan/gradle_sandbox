@@ -20,12 +20,11 @@ repositories {
 }
 
 dependencies {
-    testCompile project(':projectB')
     testCompile 'junit:junit:4.12'
 }
 
 application {
-    mainClassName = 'projectB.ProjectBMain'
+    mainClassName = 'projectC.ProjectCMain'
 }
 
 task taskY {
