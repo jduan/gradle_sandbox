@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation('com.google.guava:guava:29.0-jre')
     testCompile project(':projectA')
     testCompile 'junit:junit:4.12'
 }
