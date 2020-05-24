@@ -6,9 +6,9 @@ import org.junit.Test;
 import projectA.StringUtils;
 
 public class TestStrings {
-  static {
-    int a = 1 / 0;
-  }
+//  static {
+//    int a = 1 / 0;
+//  }
 
   @Test
   public void testA() {
