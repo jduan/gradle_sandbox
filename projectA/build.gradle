@@ -10,6 +10,8 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'application'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 dependencies {
@@ -21,6 +23,21 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+application {
+    mainClassName = 'projectA.StringUtils'
+}
+
+// Configure Auto Relocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "myapp" // Default value is "shadow"
+
+}
+
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 task taskX(dependsOn: ':projectB:taskY') {
     doLast {
