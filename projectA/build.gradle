@@ -31,6 +31,8 @@ application {
 // Configure Auto Relocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
+// This relocates all of the dependencies of this project. Consumers of this project
+// will be able to depend on other versions of these libs without conflict.
 task relocateShadowJar(type: ConfigureShadowRelocation) {
     target = tasks.shadowJar
     prefix = "myapp" // Default value is "shadow"
