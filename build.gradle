@@ -23,6 +23,17 @@ plugins {
     id 'java-library'
 }
 
+allprojects {
+    afterEvaluate { project ->
+        println "Adding mytest task to $project"
+        project.task('mytest') {
+            doLast {
+                println "Running mytests for $project"
+            }
+        }
+    }
+}
+
 // This task uses the "commons-coded" library from the above.
 task encode {
     doLast {
@@ -115,7 +126,7 @@ task copy(type: Copy, group: "Custom",
 task zip(type: Zip, group: "Archive",
         description: "Archives sources in a zip file") {
     from "src"
-    setArchiveName "gradle_sandbox_1.0.zip"
+    setArchiveFileName "gradle_sandbox_1.0.zip"
 }
 
 // configure a task after creation

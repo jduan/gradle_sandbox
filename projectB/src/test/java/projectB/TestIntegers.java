@@ -8,6 +8,6 @@ import projectA.StringUtils;
 public class TestIntegers {
   @Test
   public void testA() {
-    assertEquals("hiyo", StringUtils.concat("hi", "yo"));
+    assertEquals("hi yo", StringUtils.concat("hi", "yo"));
   }
 }
